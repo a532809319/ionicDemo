@@ -1,1 +1,0 @@
-export const APP_SERVE_URL="http://jsonplaceholder.typicode.com"

@@ -1,40 +1,68 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import { NgModule, ErrorHandler } from "@angular/core";
+import { HttpModule, Http } from "@angular/http";
+import { HttpClientModule } from "@angular/common/http";
+import { BrowserModule } from "@angular/platform-browser";
+import { IonicApp, IonicModule, IonicErrorHandler } from "ionic-angular";
+import { DemoApp } from "./app.component";
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
+import { IonicStorageModule } from "@ionic/storage";
+//拦截器
+import {
+  HttpInterceptorModule,
+  HttpInterceptorService
+} from "ng-http-interceptor";
+import { HttpServiceProvider } from "../providers/http-service/http-service";
+import { ListService } from "../pages/list/listService";
+import { Camera } from "@ionic-native/camera";
+import { Keyboard } from "@ionic-native/keyboard";
+import { AppVersion } from "@ionic-native/app-version";
+// import { AppUpdate } from "@ionic-native/app-update";
+import { Calendar } from "@ionic-native/calendar";
+import { HttpClientService } from "../providers/http-service/httpClient";
 @NgModule({
-  declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
+  declarations: [DemoApp],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpModule,
+    HttpInterceptorModule,
+    HttpClientModule,
+    IonicModule.forRoot(DemoApp, {
+      backButtonText: "",
+      tabsHideOnSubPages: "true", //ionic3隐藏全部子页面tabs
+      mode: "ios" //把所有平台设置为iOS风格：
+    }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
+  entryComponents: [DemoApp],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    HttpModule,
+    HttpInterceptorModule,
+    {
+      provide: ErrorHandler,
+      useClass: IonicErrorHandler
+    },
+    HttpServiceProvider,
+    ListService,
+    Camera,
+    Keyboard,
+    AppVersion,
+    Calendar,
+    HttpClientService
   ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(http: Http, httpInterceptor: HttpInterceptorService) {
+    //请求添加拦截器
+    httpInterceptor.request().addInterceptor((data, method) => {
+      return data;
+    });
+    httpInterceptor.response().addInterceptor((res, method) => {
+      return res;
+    });
+  }
+}

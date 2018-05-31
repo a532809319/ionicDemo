@@ -7,5 +7,25 @@
 </ion-header>
 
 <ion-content padding>
+<button ion-button full (click)="getPic()">
+	调用摄像头
+</button>
+<button ion-button full (click)="getPic2()">
+	调用相册
+</button>
+<ion-img src="{{photo}}" width="120" height="120"></ion-img>
 
+<ion-list>
+	<ion-item>
+		<ion-label stacked>UserName</ion-label>
+		<ion-input type="text" name="username" placeholder="UserName Input"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label stacked>PassWord</ion-label>
+		<ion-input type="password" name="password" placeholder="Password Input"></ion-input>
+	</ion-item>
+</ion-list>
+ <div padding>
+      <button ion-button color="primary" block>Sign In</button>
+    </div>
 </ion-content>

@@ -21,7 +21,7 @@ export class TabsPage {
 		private event: Events,
 		public navCtrl: NavController,
 		public app: App
-	) {}
+	) { }
 	ionViewDidLoad() {
 		this.initMenu();
 		let tabs = this.queryElement(this.elementRef.nativeElement, ".tabbar");

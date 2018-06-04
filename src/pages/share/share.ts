@@ -24,7 +24,7 @@ export class SharePage {
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		public actionSheet: ActionSheetController
-	) {}
+	) { }
 
 	ionViewDidLoad() {
 		console.log("ionViewDidLoad SharePage");
@@ -37,7 +37,7 @@ export class SharePage {
 						text: "微信",
 						handler: () => {
 							Wechat.isInstalled(
-								function(installed) {
+								function (installed) {
 									if (installed) {
 										Wechat.share(
 											{
@@ -67,7 +67,7 @@ export class SharePage {
 										alert("Please install Wechat");
 									}
 								},
-								function(reason) {
+								function (reason) {
 									alert("Failed: " + reason);
 								}
 							);
@@ -75,7 +75,7 @@ export class SharePage {
 					},
 					{
 						text: "朋友圈",
-						handler: () => {}
+						handler: () => { }
 					},
 					{
 						text: "取消",

@@ -1,3 +1,42 @@
 page-calendar {
+  .cld-old {
+    text-align: center;
+    line-height: 35px;
+    color: #cccccc;
+  }
+  .cld-day {
+    text-align: center;
+    line-height: 35px;
+    width: 35px;
+    margin: auto;
+  }
+  .cld-cur {
+    text-align: center;
+    background-color: aqua;
+    line-height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin: auto;
+  }
+  .cld-title {
+    line-height: 40px;
+    font-size: 20px;
+  }
+  .ion-slides {
+    height: auto;
+  }
+  p-calendar {
+    width: 100%;
+    display: block;
+    margin-top: 8%;
+  }
+  .ui-calendar {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
 
+  .ui-datepicker {
+    width: 100%;
+  }
 }

@@ -19,6 +19,7 @@ import { HomePage } from "../pages/home/home";
 import { AboutPage } from "../pages/about/about";
 import { ContactPage } from "../pages/contact/contact";
 import { ListPage } from "../pages/list/list";
+
 declare var screen: any;
 @Component({
   templateUrl: "app.html"
@@ -59,7 +60,8 @@ export class DemoApp {
             if (result) {
               this.storage.get("gesture_pwd").then(res => {
                 if (res) {
-                  this.rootPage = "LockPage";
+                  // this.rootPage = "LockPage";
+                  this.rootPage = "TabsPage";
                 } else {
                   this.rootPage = "TabsPage";
                 }
@@ -78,7 +80,8 @@ export class DemoApp {
           if (result) {
             this.storage.get("gesture_pwd").then(res => {
               if (res) {
-                this.rootPage = "LockPage";
+                // this.rootPage = "LockPage";
+                this.rootPage = "TabsPage";
               } else {
                 this.rootPage = "TabsPage";
               }

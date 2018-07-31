@@ -4,6 +4,7 @@ import { Events, Tabs, IonicPage, NavController, App } from "ionic-angular";
   name: "TabsPage"
 })
 @Component({
+  selector: "page-tabs",
   templateUrl: "tabs.html"
 })
 export class TabsPage {
@@ -44,46 +45,19 @@ export class TabsPage {
   }
   initMenu() {
     this.menuList = [
-      {
-        title: "Action Sheets",
-        component: "ActionSheetsPage",
-        icon: ""
-      },
-      {
-        title: "Echarts Demo",
-        component: "EchartsDemoPage",
-        icon: ""
-      },
-      {
-        title: "Alerts",
-        component: "AlertsPage",
-        icon: ""
-      },
-      {
-        title: "Buttons",
-        component: "ButtonsPage",
-        icon: ""
-      },
-      {
-        title: "AppUpdate",
-        component: "AppupdatePage",
-        icon: ""
-      },
-      {
-        title: "Gantt Chart",
-        component: "GanttPage",
-        icon: ""
-      },
-      {
-        title: "Galendar",
-        component: "CalendarPage",
-        icon: ""
-      },
-      {
-        title: "Share",
-        component: "SharePage",
-        icon: ""
-      }
+      { title: "Action Sheets", component: "ActionSheetsPage", icon: "" },
+      { title: "Echarts Demo", component: "EchartsDemoPage", icon: "" },
+      { title: "Alerts", component: "AlertsPage", icon: "" },
+      { title: "Buttons", component: "ButtonsPage", icon: "" },
+      { title: "AppUpdate", component: "AppupdatePage", icon: "" },
+      { title: "Gantt Chart", component: "GanttPage", icon: "" },
+      { title: "Galendar", component: "CalendarPage", icon: "" },
+      { title: "Share", component: "SharePage", icon: "" },
+      { title: "VideoPlay", component: "VideoPage", icon: "" },
+      { title: "Geolocation", component: "GeolocationPage", icon: "" },
+      { title: "Galendar2", component: "Calendar2Page", icon: "" },
+      { title: "H5calendar", component: "H5calendarPage", icon: "" },
+      { title: "SwiperCalendar", component: "SwiperCalendarPage", icon: "" }
     ];
   }
 

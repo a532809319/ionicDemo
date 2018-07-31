@@ -1,25 +1,24 @@
 page-lock {
-}
+  .lock-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-.lock-container {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-}
+  .lock-msg {
+    position: absolute;
+    height: 48px;
+    width: 100%;
+    text-align: center;
+    line-height: 48px;
+    color: red;
+  }
 
-.lock-msg {
-	position: absolute;
-	height: 48px;
-	width: 100%;
-	text-align: center;
-	line-height: 48px;
-	color: red;
-}
-
-.lock-img {
-	height: 80px;
-	width: 80px;
-	position: relative;
-	transform: translateX(-50%);
-	left: 50%;
+  .lock-img {
+    height: 80px;
+    width: 80px;
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
+  }
 }

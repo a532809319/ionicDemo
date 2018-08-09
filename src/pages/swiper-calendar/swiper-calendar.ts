@@ -32,6 +32,7 @@ export class SwiperCalendarPage {
   contentTopMax: number; //内容视图距离顶部的最大距离=monthViewHeight
   intervalDate: string; //选中日期和当前实际日期相差的天数
   showBackButton: boolean = true; //是否显示返回今天按钮
+  startDargContentScollTop: number; //开始拖动时内容视图的scroll
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   ionViewDidLoad() {
@@ -770,11 +771,14 @@ export class SwiperCalendarPage {
   }
   //开始滑动
   calendarDragStart(event) {
+    //隐藏周视图
+    $(".week-calendar-view").css("z-index", -999);
     //初始化monthViewTop和contentViewTop
     this.monthViewTop = $(".month-calendar-view").position().top;
     this.contentViewTop = $(".calendar-content-view").position().top;
     this.calMinAndMaxTop();
     let curContentScrollTop = $(".calendar-content-view").scrollTop();
+    this.startDargContentScollTop = curContentScrollTop;
     if (curContentScrollTop != 0) {
       return;
     } else if (
@@ -784,9 +788,6 @@ export class SwiperCalendarPage {
     ) {
       $(".calendar-content-view").css("overflow-y", "hidden");
     }
-
-    //隐藏周视图
-    $(".week-calendar-view").css("z-index", -999);
   }
   //滑动中
   calendarDrag(event) {
@@ -794,8 +795,15 @@ export class SwiperCalendarPage {
     if (curContentScrollTop != 0) {
       return;
     }
+
     //滑动的距离
     let deltaY = event.detail.deltaY;
+    if (deltaY > 0) {
+      //周视图时内容视图scroll为0后还再下拉
+      $(".calendar-content-view").css("overflow-y", "hidden");
+      deltaY = deltaY - this.startDargContentScollTop;
+      $(".week-calendar-view").css("z-index", -999);
+    }
     let monthViewTop = this.monthViewTop + deltaY;
     if (monthViewTop >= this.monthTopMin && monthViewTop <= this.monthTopMax) {
       $(".month-calendar-view").css("top", monthViewTop + "px");

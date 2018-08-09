@@ -30,7 +30,6 @@ export class SwiperCalendarPage {
   monthTopMax: number = 0; //月视图距离顶部的最大距离
   contentTopMin: number; //内容视图距离顶部的最小距离=周视图的高度
   contentTopMax: number; //内容视图距离顶部的最大距离=monthViewHeight
-  contentScrollTop: number = 0; //内容视图滚动条距父节点距离，初始为零
   intervalDate: string; //选中日期和当前实际日期相差的天数
   showBackButton: boolean = true; //是否显示返回今天按钮
   @ViewChild(Content) content: Content;
@@ -775,11 +774,11 @@ export class SwiperCalendarPage {
     this.monthViewTop = $(".month-calendar-view").position().top;
     this.contentViewTop = $(".calendar-content-view").position().top;
     this.calMinAndMaxTop();
-    this.contentScrollTop = $(".calendar-content-view").scrollTop();
-    if (this.contentScrollTop != 0) {
+    let curContentScrollTop = $(".calendar-content-view").scrollTop();
+    if (curContentScrollTop != 0) {
       return;
     } else if (
-      this.contentScrollTop == 0 &&
+      curContentScrollTop == 0 &&
       this.calendarType == "week" &&
       event.detail.deltaY > 0
     ) {
@@ -791,7 +790,8 @@ export class SwiperCalendarPage {
   }
   //滑动中
   calendarDrag(event) {
-    if (this.contentScrollTop != 0) {
+    let curContentScrollTop = $(".calendar-content-view").scrollTop();
+    if (curContentScrollTop != 0) {
       return;
     }
     //滑动的距离
@@ -810,7 +810,8 @@ export class SwiperCalendarPage {
   }
   //滑动结束
   calendarDragEnd(event) {
-    if (this.contentScrollTop != 0) {
+    let curContentScrollTop = $(".calendar-content-view").scrollTop();
+    if (curContentScrollTop != 0) {
       return;
     }
 
@@ -842,6 +843,7 @@ export class SwiperCalendarPage {
         },
         function() {
           self.calendarType = "month";
+          $(".calendar-content-view").css("overflow-y", "hidden");
         }
       );
       $(".calendar-content-view").animate({
@@ -888,17 +890,23 @@ export class SwiperCalendarPage {
   //监听内容视图滚动事件
   contentViewScroll(event) {
     let scrollTop = event.target.scrollTop;
-    this.contentScrollTop = scrollTop;
     if (scrollTop > 0) {
       $(".week-calendar-view").css({
         "border-bottom": "1px solid #c8c7cc",
         "z-index": 15
       });
     } else {
-      $(".week-calendar-view").css({
-        "border-bottom": "0px solid #c8c7cc",
-        "z-index": 10
-      });
+      if (this.calendarType == "week") {
+        $(".week-calendar-view").css({
+          "border-bottom": "0px solid #c8c7cc",
+          "z-index": 10
+        });
+      } else {
+        $(".week-calendar-view").css({
+          "border-bottom": "0px solid #c8c7cc",
+          "z-index": -999
+        });
+      }
     }
   }
   //计算选中日期和当前实际日期差

@@ -57,7 +57,8 @@ export class TabsPage {
       { title: "Geolocation", component: "GeolocationPage", icon: "" },
       { title: "Galendar2", component: "Calendar2Page", icon: "" },
       { title: "H5calendar", component: "H5calendarPage", icon: "" },
-      { title: "SwiperCalendar", component: "SwiperCalendarPage", icon: "" }
+      { title: "SwiperCalendar", component: "SwiperCalendarPage", icon: "" },
+      { title: "Gestures", component: "GesturesPage", icon: "" }
     ];
   }
 

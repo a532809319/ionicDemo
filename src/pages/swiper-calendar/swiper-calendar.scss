@@ -1,18 +1,35 @@
 page-swiper-calendar {
-  /*日历容器样式*/
+  .scroll-content {
+    overflow-y: hidden;
+  }
+  .month-calendar-view {
+    position: absolute;
+    height: auto;
+  }
+  .week-calendar-view {
+    height: auto;
+    position: absolute;
+    top: 0px;
+    z-index: -999;
+  }
+  .calendar-content-view {
+    position: absolute;
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
 
-  .em-calendar-container,
+  /*日历容器样式*/
   .em-calendar-wrapper-week,
   .em-calendar-wrapper,
   .em-calendar {
+    position: relative;
     overflow: hidden;
     background: #ffffff;
+    height: 100%;
+    width: 100%;
   }
-
-  .em-calendar-container {
-    border-bottom: 1px solid #e0e0e0;
-  }
-
   /*标注红色*/
 
   .em-red {
@@ -28,6 +45,8 @@ page-swiper-calendar {
     padding-bottom: 15px;
     color: #999999;
     font-size: 13px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #f8f8f8;
   }
 
   .em-calendar-content .em-calendar-item {
@@ -37,7 +56,7 @@ page-swiper-calendar {
     text-align: center;
     /*border:1px solid #000;*/
     border-radius: 50%;
-    margin-bottom: 5px;
+    margin: 5px 0;
   }
 
   /* 周六、周日列字体标红*/
@@ -76,17 +95,6 @@ page-swiper-calendar {
     margin-top: -3px;
   }
 
-  /*通用点皮肤*/
-
-  .em-calendar-content .em-calendar-item .dot {
-    display: inline-flex;
-    width: 8px;
-    height: 8px;
-    margin-top: -13px;
-    position: absolute;
-    margin-left: -4px;
-  }
-
   /*点击效果*/
 
   .em-calendar-content .em-calendar-active.em-calendar-item:nth-child(7n) .day,
@@ -98,7 +106,7 @@ page-swiper-calendar {
 
   .em-calendar-active {
     background-color: #3c80e6;
-    width: 14.285%;
+    width: 14.285vw;
     height: 54px;
   }
 

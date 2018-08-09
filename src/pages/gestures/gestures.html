@@ -1,0 +1,42 @@
+<!--
+  Generated template for the GesturesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>gestures</ion-title>
+  </ion-navbar>
+  <div id="header1" style="height: 48px;width:100%;display: none">1111111</div>
+</ion-header>
+<ion-content (dragstart)="dragStart($event)" (drag)="drag($event)" (dragend)='dragEnd($event)'>
+  <div id="month" style="width:100%;position: absolute;background: darkmagenta">
+    <ion-item style="background: darkmagenta">2</ion-item>
+    <ion-item style="background: darkmagenta">3</ion-item>
+    <ion-item style="background: crimson">4</ion-item>
+    <ion-item style="background: darkmagenta">5</ion-item>
+    <ion-item style="background: darkmagenta">6</ion-item>
+  </div>
+  <div id="week" style="width:100%;display: none">
+    <ion-item style="background: bisque;z-index: 10">周视图</ion-item>
+  </div>
+  <div id="content" style="height: 100%;width:100%;position: absolute;background:darkkhaki;top:264px">
+    <ion-item>2</ion-item>
+    <ion-item>3</ion-item>
+    <ion-item>4</ion-item>
+    <ion-item>5</ion-item>
+    <ion-item>6</ion-item>
+    <ion-item>2</ion-item>
+    <ion-item>3</ion-item>
+    <ion-item>4</ion-item>
+    <ion-item>5</ion-item>
+    <ion-item>6</ion-item>
+    <ion-item>2</ion-item>
+    <ion-item>3</ion-item>
+    <ion-item>4</ion-item>
+    <ion-item>5</ion-item>
+    <ion-item>6</ion-item>
+  </div>
+</ion-content>

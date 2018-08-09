@@ -7,31 +7,76 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{activeDate.year}}年{{activeDate.month}}月</ion-title>
+    <ion-title>{{activeDate.year}}年{{activeDate.month}}月
+      <span style="font-size: 12px">{{intervalDate}}</span>
+    </ion-title>
   </ion-navbar>
-
+  <div class="em-week">
+    <span>日</span>
+    <span>一</span>
+    <span>二</span>
+    <span>三</span>
+    <span>四</span>
+    <span>五</span>
+    <span>六</span>
+  </div>
 </ion-header>
+<ion-content (dragstart)="calendarDragStart($event)" (drag)="calendarDrag($event)" (dragend)="calendarDragEnd($event)">
 
-
-<ion-content>
-  <div id="calendar">
-    <div class="em-calendar-container">
-      <div class="em-week">
-        <span>日</span>
-        <span>一</span>
-        <span>二</span>
-        <span>三</span>
-        <span>四</span>
-        <span>五</span>
-        <span>六</span>
-      </div>
-      <div class="swiper-container" id="ion-calendar">
-        <div class="swiper-wrapper" id="swiper-wrapper">
-        </div>
-      </div>
+  <!--月视图-->
+  <div class="swiper-container month-calendar-view">
+    <div class="swiper-wrapper" id="monthSwiperWrapper">
     </div>
   </div>
-  <ion-fab right bottom>
+  <!--周视图-->
+  <div class="swiper-container week-calendar-view">
+    <div class="swiper-wrapper" id="weekSwiperWrapper"></div>
+  </div>
+  <div class="calendar-content-view" (scroll)="contentViewScroll($event)">
+
+    <ion-item>
+      <span>团体以和睦为兴盛</span>
+    </ion-item>
+    <ion-item>
+      <span>精进以持恒为准则</span>
+    </ion-item>
+    <ion-item>
+      <span>健康以慎食为良药</span>
+    </ion-item>
+    <ion-item>
+      <span>诤议以宽恕为旨要</span>
+    </ion-item>
+    <ion-item>
+      <span>长幼以慈爱为进德</span>
+    </ion-item>
+    <ion-item>
+      <span>学问以勤习为入门</span>
+    </ion-item>
+    <ion-item>
+      <span>待人以至诚为基石</span>
+    </ion-item>
+    <ion-item>
+      <span>待人以至诚为基石</span>
+    </ion-item>
+    <ion-item>
+      <span>待人以至诚为基石</span>
+    </ion-item>
+    <ion-item>
+      <span>处众以谦恭为有理</span>
+    </ion-item>
+    <ion-item>
+      <span>凡事以预立而不劳</span>
+    </ion-item>
+    <ion-item>
+      <span>接物以谨慎为根本</span>
+    </ion-item>
+    <button ion-button full (click)="calMinAndMaxTop()">计算距离</button>
+    <button ion-button full>显示月视图数据</button>
+
+  </div>
+
+  <ion-fab right bottom *ngIf="intervalDate">
     <button ion-fab (click)="backToToday()">今天</button>
   </ion-fab>
+
 </ion-content>

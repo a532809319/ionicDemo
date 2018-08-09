@@ -1,0 +1,81 @@
+page-tabs {
+  .tabs-ios .tabbar {
+    border-top: 0;
+    background: url("../assets/imgs/tabs/bottom.png");
+  }
+  .ion-tab-icon-base {
+    width: 32px;
+    min-width: 32px !important;
+    height: 32px;
+    min-height: 32px !important;
+    padding: 0px 1px 1px;
+  }
+
+  .ion-tab-icon-md-base {
+    width: 32px;
+    min-width: 32px !important;
+    height: 32px;
+    min-height: 32px !important;
+  }
+
+  $tabImageName: "home" "invest" "find" "mine" "talk";
+  @for $i from 1 to 6 {
+    @if $i==5 {
+      //for ios
+      .ion-ios-tab-#{nth($tabImageName, $i)} {
+        width: 48px;
+        height: 48px !important;
+        min-height: 48px;
+        bottom: 10px;
+        position: fixed;
+        content: url("../assets/imgs/tabs/#{nth($tabImageName, $i)}_choosed.png");
+      }
+      .ion-ios-tab-#{nth($tabImageName, $i)}-outline {
+        width: 48px;
+        height: 48px !important;
+        min-height: 48px;
+        bottom: 10px;
+        position: fixed;
+        content: url("../assets/imgs/tabs/#{nth($tabImageName, $i)}.png");
+      }
+
+      // for android
+      .tabs-md .tab-button[aria-selected="true"] {
+        .ion-md-tab-#{nth($tabImageName, $i)} {
+          @extend .ion-tab-icon-md-base;
+          content: url("../assets/images/tabs/#{nth($tabImageName, $i)}_choosed.png");
+        }
+      }
+      .tabs-md .tab-button[aria-selected="false"] {
+        .ion-md-tab-#{nth($tabImageName, $i)} {
+          @extend .ion-tab-icon-md-base;
+          content: url("../assets/images/tabs/#{nth($tabImageName, $i)}.png");
+        }
+      }
+    } @else {
+      //for ios
+      .ion-ios-tab-#{nth($tabImageName, $i)} {
+        @extend .ion-tab-icon-base;
+        content: url("../assets/imgs/tabs/#{nth($tabImageName, $i)}_choosed.png");
+      }
+      .ion-ios-tab-#{nth($tabImageName, $i)}-outline {
+        @extend .ion-tab-icon-base;
+        content: url("../assets/imgs/tabs/#{nth($tabImageName, $i)}.png");
+      }
+
+      // for android
+      .tabs-md .tab-button[aria-selected="true"] {
+        .ion-md-tab-#{nth($tabImageName, $i)} {
+          @extend .ion-tab-icon-md-base;
+          content: url("../assets/images/tabs/#{nth($tabImageName, $i)}_choosed.png");
+        }
+      }
+      .tabs-md .tab-button[aria-selected="false"] {
+        .ion-md-tab-#{nth($tabImageName, $i)} {
+          @extend .ion-tab-icon-md-base;
+          content: url("../assets/images/tabs/#{nth($tabImageName, $i)}.png");
+        }
+      }
+    }
+  }
+}

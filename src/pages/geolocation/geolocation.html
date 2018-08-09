@@ -1,0 +1,46 @@
+<!--
+  Generated template for the GeolocationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>geolocation</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button (click)="getGeolocation()">获取当前位置信息</button>
+  <button ion-button (click)="getNetworkInterface()">获取网络信息</button>
+  <button ion-button (click)="getNetworkType()">获取网络类型</button>
+  <button ion-button (click)="openWifi()">打开Wifi</button>
+  <button ion-button (click)="checkBluetooth()">检查蓝牙</button>
+  <div>位置信息：</div>
+  <div>
+    <span>latitude:{{latitude}}</span>
+  </div>
+  <div>
+    <span>longitude:{{longitude}}</span>
+  </div>
+  <div>网络信息：</div>
+  <div>
+    <span>IP地址：{{ip}}</span>
+  </div>
+  <div>
+    <span>网关：{{subnet}}</span>
+  </div>
+  <div>
+    <span>网络类型：{{networkType}}</span>
+  </div>
+  <div>蓝牙信息：</div>
+  <div>
+    <span>是否可用：{{isEnabled}}</span>
+  </div>
+  <div>
+    <span>是否连接：{{isConnected}}</span>
+  </div>
+</ion-content>

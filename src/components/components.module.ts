@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { ActionSheetsComponent } from './action-sheets/action-sheets';
+import { CalendarComponent } from './calendar/calendar';
 @NgModule({
-	declarations: [ActionSheetsComponent],
+	declarations: [ActionSheetsComponent,
+    CalendarComponent],
 	imports: [],
-	exports: [ActionSheetsComponent]
+	exports: [ActionSheetsComponent,
+    CalendarComponent]
 })
 export class ComponentsModule {}

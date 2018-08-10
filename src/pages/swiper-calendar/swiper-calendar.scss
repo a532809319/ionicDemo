@@ -19,7 +19,9 @@ page-swiper-calendar {
     height: 100%;
     z-index: 10;
   }
-
+  .item-block {
+    text-align: center;
+  }
   /*日历容器样式*/
   .em-calendar-wrapper-week,
   .em-calendar-wrapper,

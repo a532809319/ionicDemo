@@ -33,7 +33,8 @@ export class SwiperCalendarPage {
   intervalDate: string; //选中日期和当前实际日期相差的天数
   showBackButton: boolean = true; //是否显示返回今天按钮
   startDargContentScollTop: number; //开始拖动时内容视图的scroll
-  @ViewChild(Content) content: Content;
+  @ViewChild(Content)
+  content: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
   ionViewDidLoad() {
     //设置今日日期
@@ -54,6 +55,7 @@ export class SwiperCalendarPage {
     if (this.calendarType == "week") {
       this.refreshMonthCalendar(this.curDateTime);
       this.refreshWeekCalendar(this.curDateTime);
+      $(".week-calendar-view").css("z-index", 10);
     } else {
       if (this.monthViewCalendar) {
         this.monthViewCalendar.destroy(true);
@@ -133,7 +135,7 @@ export class SwiperCalendarPage {
     //内容视图距顶部最大位置等于月视图的高度
     this.contentTopMax = this.monthViewHeight;
     //设置内容视图的位置=月视图的高度-月视图当前距底部的实际距离
-    if (!this.contentViewTop) {
+    if (this.calendarType == "month") {
       this.contentViewTop = this.monthViewHeight;
     }
     $(".calendar-content-view").css("top", this.contentViewTop + "px");
@@ -771,38 +773,45 @@ export class SwiperCalendarPage {
   }
   //开始滑动
   calendarDragStart(event) {
-    //隐藏周视图
-    $(".week-calendar-view").css("z-index", -999);
     //初始化monthViewTop和contentViewTop
     this.monthViewTop = $(".month-calendar-view").position().top;
     this.contentViewTop = $(".calendar-content-view").position().top;
+    //计算各视图位置最大与最小值
     this.calMinAndMaxTop();
-    let curContentScrollTop = $(".calendar-content-view").scrollTop();
-    this.startDargContentScollTop = curContentScrollTop;
-    if (curContentScrollTop != 0) {
-      return;
-    } else if (
-      curContentScrollTop == 0 &&
-      this.calendarType == "week" &&
-      event.detail.deltaY > 0
-    ) {
-      $(".calendar-content-view").css("overflow-y", "hidden");
-    }
+    //开始滑动时内容视图滚动条的位置
+    this.startDargContentScollTop = $(".calendar-content-view").scrollTop();
   }
   //滑动中
   calendarDrag(event) {
-    let curContentScrollTop = $(".calendar-content-view").scrollTop();
-    if (curContentScrollTop != 0) {
-      return;
-    }
-
-    //滑动的距离
+    //滑动的距离,向上滑动为负，向下滑动为正
     let deltaY = event.detail.deltaY;
+    //下滑至临界点,设置5px缓冲
     if (deltaY > 0) {
-      //周视图时内容视图scroll为0后还再下拉
-      $(".calendar-content-view").css("overflow-y", "hidden");
-      deltaY = deltaY - this.startDargContentScollTop;
-      $(".week-calendar-view").css("z-index", -999);
+      if (deltaY > this.startDargContentScollTop + 5) {
+        $(".calendar-content-view").css("overflow-y", "hidden");
+        deltaY = deltaY - this.startDargContentScollTop;
+        $(".week-calendar-view").css("z-index", -999);
+        this.calendarType = "month";
+      } else {
+        return;
+      }
+    }
+    //上滑临界点,设置5px缓冲,晚5px显示周视图
+    if (
+      deltaY < 0 &&
+      Math.abs(deltaY) > this.contentTopMax - this.weekViewHeight + 5
+    ) {
+      // 计算内容视图高度并设置为可滚动
+      if (($(".month-calendar-view").position().top = this.monthTopMin)) {
+        let contentHeight = this.content.contentHeight;
+        let contentViewHeight = contentHeight - this.weekViewHeight;
+        $(".calendar-content-view").css({
+          height: contentViewHeight + "px",
+          "overflow-y": "scroll"
+        });
+        // $(".week-calendar-view").css("z-index", 10);
+        this.calendarType = "week";
+      }
     }
     let monthViewTop = this.monthViewTop + deltaY;
     if (monthViewTop >= this.monthTopMin && monthViewTop <= this.monthTopMax) {
@@ -818,45 +827,33 @@ export class SwiperCalendarPage {
   }
   //滑动结束
   calendarDragEnd(event) {
-    let curContentScrollTop = $(".calendar-content-view").scrollTop();
-    if (curContentScrollTop != 0) {
-      return;
-    }
-
-    let self = this;
     let deltaY = event.detail.deltaY;
     console.log("滑动结束:" + deltaY);
+    //下滑结束,补足滚动距离显示月视图
+    if (deltaY > 0) {
+      if (deltaY > this.startDargContentScollTop + 5) {
+        this.calendarType = "month";
+        $(".month-calendar-view").animate({ top: this.monthTopMax + "px" });
+        $(".calendar-content-view").animate({ top: this.contentTopMax + "px" });
+      }
+    }
+    //上滑结束,补足滚动部分显示周视图
     if (deltaY < 0) {
-      //上滑切换为周视图
       $(".month-calendar-view").animate(
         { top: this.monthTopMin + "px" },
-        function() {
-          //显示周视图
-          let curContentScrollTop = $(".calendar-content-view").scrollTop;
-          if (curContentScrollTop != 0) {
-            $(".week-calendar-view").css("z-index", 15);
-          } else {
-            $(".week-calendar-view").css("z-index", 10);
-          }
-          self.calendarType = "week";
-          self.controlContentView();
+        () => {
+          this.calendarType = "week";
+          // 计算内容视图高度并设置为可滚动
+          let contentHeight = this.content.contentHeight;
+          let contentViewHeight = contentHeight - this.weekViewHeight;
+          $(".calendar-content-view").css({
+            height: contentViewHeight + "px",
+            "overflow-y": "scroll"
+          });
+          $(".week-calendar-view").css("z-index", 10);
         }
       );
       $(".calendar-content-view").animate({ top: this.contentTopMin + "px" });
-    } else if (deltaY > 0) {
-      //下滑切换为月视图
-      $(".month-calendar-view").animate(
-        {
-          top: this.monthTopMax + "px"
-        },
-        function() {
-          self.calendarType = "month";
-          $(".calendar-content-view").css("overflow-y", "hidden");
-        }
-      );
-      $(".calendar-content-view").animate({
-        top: this.contentTopMax + "px"
-      });
     }
   }
   /**
@@ -872,7 +869,11 @@ export class SwiperCalendarPage {
     //重新计算各视图的位置
     this.calMinAndMaxTop();
     $(".month-calendar-view").css("top", this.monthTopMin + "px");
-    this.contentViewTop = this.contentTopMin;
+    if (this.calendarType == "week") {
+      this.contentViewTop = this.contentTopMin;
+    } else {
+      this.contentViewTop = this.contentTopMax;
+    }
     this.initMonthView(dateTime);
   }
   /**
@@ -884,17 +885,7 @@ export class SwiperCalendarPage {
     }
     this.initWeekView(dateTime);
   }
-  /**
-   * 切换为周视图后内容视图可滚动查看
-   */
-  controlContentView() {
-    let contentHeight = this.content.contentHeight;
-    let contentViewHeight = contentHeight - this.weekViewHeight;
-    $(".calendar-content-view").css({
-      height: contentViewHeight + "px",
-      "overflow-y": "scroll"
-    });
-  }
+
   //监听内容视图滚动事件
   contentViewScroll(event) {
     let scrollTop = event.target.scrollTop;

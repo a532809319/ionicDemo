@@ -76,5 +76,7 @@
   <ion-fab right bottom *ngIf="intervalDate">
     <button ion-fab (click)="backToToday()">今天</button>
   </ion-fab>
-
+  <ion-fab right bottom *ngIf="!intervalDate">
+    <button ion-fab (click)="clock()">打卡</button>
+  </ion-fab>
 </ion-content>

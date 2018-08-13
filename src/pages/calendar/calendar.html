@@ -6,70 +6,9 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>{{titleLable}}</ion-title>
+    <ion-title>Calendar</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
   <button ion-button full (click)="openCalendar()">打开Calendar</button>
-  <ion-slides #mySlides loop=true class="ion-slides" (ionSlideWillChange)="slideWillChange()" (ionSlideDidChange)="slideChanged()">
-    <ion-slide>
-      <!-- <p-calendar [(ngModel)]="value" [inline]="true" [locale]="zh">
-
-      </p-calendar> -->
-      <!-- <calendar [calendarData]="listData1"></calendar> -->
-      <!-- <table>
-        <tbody>
-          <tr>
-            <td (click)="rightSlide()">测试</td>
-          </tr>
-        </tbody>
-      </table> -->
-      <div id="box1" class="box1" #box1>
-        <!-- <div compile="calendar1"></div> -->
-        <!-- <table width="100%">
-          <thead>
-            <tr>
-              <th>日</th>
-              <th>一</th>
-              <th>二</th>
-              <th>三</th>
-              <th>四</th>
-              <th>五</th>
-              <th>六</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let lists of listData">
-              <td *ngFor="let list of lists">{{list}}</td>
-            </tr>
-          </tbody>
-        </table> -->
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div id="box2" class="box2">
-        <!-- <table width="100%">
-          <thead>
-            <tr>
-              <th>日</th>
-              <th>一</th>
-              <th>二</th>
-              <th>三</th>
-              <th>四</th>
-              <th>五</th>
-              <th>六</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let lists of listData">
-              <td *ngFor="let list of lists">{{list}}</td>
-            </tr>
-          </tbody>
-        </table> -->
-      </div>
-    </ion-slide>
-  </ion-slides>
-
-  <!-- <button ion-button full (click)="buttonClick('1')">上个月</button>
-  <button ion-button full (click)="buttonClick('2')">下个月</button> -->
 </ion-content>

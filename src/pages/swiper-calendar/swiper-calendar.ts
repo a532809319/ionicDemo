@@ -809,7 +809,6 @@ export class SwiperCalendarPage {
           height: contentViewHeight + "px",
           "overflow-y": "scroll"
         });
-        // $(".week-calendar-view").css("z-index", 10);
         this.calendarType = "week";
       }
     }
@@ -828,7 +827,7 @@ export class SwiperCalendarPage {
   //滑动结束
   calendarDragEnd(event) {
     let deltaY = event.detail.deltaY;
-    console.log("滑动结束:" + deltaY);
+    // console.log("滑动结束:" + deltaY);
     //下滑结束,补足滚动距离显示月视图
     if (deltaY > 0) {
       if (deltaY > this.startDargContentScollTop + 5) {
@@ -932,5 +931,9 @@ export class SwiperCalendarPage {
         this.intervalDate = interval == 0 ? "" : interval + "天前";
       }
     }
+  }
+  //打卡跳转
+  clock() {
+    this.navCtrl.push("ClockPage");
   }
 }

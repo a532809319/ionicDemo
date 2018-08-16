@@ -8,7 +8,8 @@ import { Events, Tabs, IonicPage, NavController, App } from "ionic-angular";
   templateUrl: "tabs.html"
 })
 export class TabsPage {
-  @ViewChild("homeTabs") tabRef: Tabs;
+  @ViewChild("homeTabs")
+  tabRef: Tabs;
   mb: any;
   tab1Root = "HomePage";
   tab2Root = "AboutPage";
@@ -56,7 +57,6 @@ export class TabsPage {
       { title: "VideoPlay", component: "VideoPage", icon: "" },
       { title: "Geolocation", component: "GeolocationPage", icon: "" },
       { title: "Galendar2", component: "Calendar2Page", icon: "" },
-      { title: "H5calendar", component: "H5calendarPage", icon: "" },
       { title: "SwiperCalendar", component: "SwiperCalendarPage", icon: "" },
       { title: "Gestures", component: "GesturesPage", icon: "" }
     ];

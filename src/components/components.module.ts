@@ -1,11 +1,8 @@
-import { NgModule } from '@angular/core';
-import { ActionSheetsComponent } from './action-sheets/action-sheets';
-import { CalendarComponent } from './calendar/calendar';
+import { NgModule } from "@angular/core";
+import { ActionSheetsComponent } from "./action-sheets/action-sheets";
 @NgModule({
-	declarations: [ActionSheetsComponent,
-    CalendarComponent],
-	imports: [],
-	exports: [ActionSheetsComponent,
-    CalendarComponent]
+  declarations: [ActionSheetsComponent],
+  imports: [],
+  exports: [ActionSheetsComponent]
 })
 export class ComponentsModule {}

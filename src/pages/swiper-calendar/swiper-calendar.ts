@@ -33,6 +33,8 @@ export class SwiperCalendarPage {
   intervalDate: string; //选中日期和当前实际日期相差的天数
   showBackButton: boolean = true; //是否显示返回今天按钮
   startDargContentScollTop: number; //开始拖动时内容视图的scroll
+  curMonthIndex: number = 1; //月视图当前月在swiper中的索引
+  curWeekIndex: number = 1; //周视图当前月在swiper中的索引
   @ViewChild(Content)
   content: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
@@ -223,6 +225,10 @@ export class SwiperCalendarPage {
               activeEl[i].classList.remove("em-calendar-active");
             }
           }
+          //当前活动项不是最后一项，不再增加
+          if (this.realIndex != self.allDate.length - 1) {
+            return;
+          }
           //向左滑动，月份递增
           let lastDate = self.allDate[self.allDate.length - 1];
           let nextYear = lastDate.year;
@@ -291,7 +297,10 @@ export class SwiperCalendarPage {
               activeEl[i].classList.remove("em-calendar-active");
             }
           }
-
+          //当前活动项不是第一个，不在增加新的项
+          if (this.realIndex != 0) {
+            return;
+          }
           //向右滑动，月份递减
           let firstDate = self.allDate[0];
           let preYear = firstDate.year;
@@ -316,6 +325,8 @@ export class SwiperCalendarPage {
           });
           let html = self.getHtmlTemplate();
           this.prependSlide(self.renderCalendar(dataObj, html));
+          //月视图当前月索引+1
+          self.curMonthIndex++;
         }
       }
     });
@@ -672,7 +683,10 @@ export class SwiperCalendarPage {
               activeEl[i].classList.remove("em-calendar-active");
             }
           }
-
+          //当前非最后一项，不再增加新的数据
+          if (this.realIndex != self.allWeekData.length - 1) {
+            return;
+          }
           //递加
           let weekData = self.allWeekData[self.allWeekData.length - 1];
           let lastDateOfWeek = weekData[weekData.length - 1].dateTime;
@@ -720,6 +734,10 @@ export class SwiperCalendarPage {
               activeEl[i].classList.remove("em-calendar-active");
             }
           }
+          //当前不是第一项，不再增加新的项
+          if (this.realIndex != 0) {
+            return;
+          }
           //递减
           let weekData = self.allWeekData[0];
           let firstDateOfWeek = weekData[0].dateTime;
@@ -736,6 +754,8 @@ export class SwiperCalendarPage {
           self.allWeekData = ar.concat(self.allWeekData);
           let template = self.getHtmlTemplate();
           this.prependSlide(self.renderWeekViewCalendar(preWeek, template));
+          //当前月的周视图索引+1
+          self.curWeekIndex++;
         }
       }
     });
@@ -809,7 +829,6 @@ export class SwiperCalendarPage {
           height: contentViewHeight + "px",
           "overflow-y": "scroll"
         });
-        // $(".week-calendar-view").css("z-index", 10);
         this.calendarType = "week";
       }
     }
@@ -828,7 +847,7 @@ export class SwiperCalendarPage {
   //滑动结束
   calendarDragEnd(event) {
     let deltaY = event.detail.deltaY;
-    console.log("滑动结束:" + deltaY);
+    // console.log("滑动结束:" + deltaY);
     //下滑结束,补足滚动距离显示月视图
     if (deltaY > 0) {
       if (deltaY > this.startDargContentScollTop + 5) {
@@ -932,5 +951,9 @@ export class SwiperCalendarPage {
         this.intervalDate = interval == 0 ? "" : interval + "天前";
       }
     }
+  }
+  //打卡跳转
+  clock() {
+    this.navCtrl.push("ClockPage");
   }
 }
